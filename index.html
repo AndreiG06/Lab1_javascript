@@ -1,17 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Lab1 by Ganja Andrei</title>
-    <script src="script.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f0f4f8; }
+        h1 { color: #1a1a2e; }
+        h2 { color: #16213e; }
+        .reference {
+            background: #ffe0b2;
+            border-left: 5px solid #e65100;
+            padding: 12px 18px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        th {
+            background: #0d47a1;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        td { padding: 10px 14px; border-bottom: 1px solid #e0e0e0; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #e3f2fd; }
+        .badge {
+            display: inline-block;
+            background: #1565c0;
+            color: #fff;
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 0.85em;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        alert("Привет, Мир!");
-        console.log("Hello, console!")
+    <h1>JS Lab1 by Ganja Andrei</h1>
 
-        
+    <h2>Процессоры Intel на DDR4 мощнее Ryzen 7 5700X</h2>
+
+    <div class="reference" id="reference"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Процессор</th>
+                <th>Ядра / Потоки</th>
+                <th>Базовая / Макс. частота (ГГц)</th>
+                <th>PassMark (мульти)</th>
+            </tr>
+        </thead>
+        <tbody id="results"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+    <script>
+        console.log("Hello, console!");
+
+        // Показываем эталон
+        const ref = window.referenceProcessor;
+        document.getElementById("reference").innerHTML =
+            `<strong>Эталон:</strong> ${ref.name} — ` +
+            `${ref.cores} ядер / ${ref.threads} потоков, ` +
+            `${ref.baseClock}/${ref.boostClock} ГГц, PassMark: <strong>${ref.passmark}</strong>`;
+
+        // Заполняем таблицу
+        const tbody = document.getElementById("results");
+        window.betterIntelDDR4.forEach(p => {
+            const row = document.createElement("tr");
+            row.innerHTML =
+                `<td>${p.name} <span class="badge">DDR4</span></td>` +
+                `<td>${p.cores} / ${p.threads}</td>` +
+                `<td>${p.baseClock} / ${p.boostClock}</td>` +
+                `<td><strong>${p.passmark}</strong></td>`;
+            tbody.appendChild(row);
+        });
     </script>
 </body>
 </html>
